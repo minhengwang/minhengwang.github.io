@@ -366,7 +366,6 @@
       <div class="nav-links">
         <a href="#news">News</a>
         <a href="#research">Research</a>
-        <a href="#awards">Awards</a>
         <button id="theme-toggle" aria-label="Toggle theme">☀️</button>
       </div>
     </div>
@@ -431,12 +430,6 @@
       <div id="pub-list" class="pub-list"></div>
     </section>
 
-    <div class="divider"><hr></div>
-
-    <section id="awards" class="section">
-      <h2 class="section-title"><span class="hash">//</span> Awards</h2>
-      <div id="awards-list" class="pub-list"></div>
-    </section>
   </main>
 
   <footer>
@@ -471,11 +464,7 @@
     // Each entry: { t: "Title", u: "paper_url", a: "authors (use <strong> for your name)", v: "Venue", vc: "venue-class", img: "figures/thumb.png" }
     // Available venue classes: venue-nature, venue-neurips, venue-iclr, venue-colm, venue-preprint, venue-blog, venue-tmlr, venue-award
     const pubs = [
-      { t:"Example Paper Title: Your First Publication", u:"#", a:"<strong>Minheng Wang</strong>, Coauthor One, Coauthor Two", v:"Preprint", vc:"venue-preprint", img:"" },
-    ];
-    const awards = [
-      // TODO: Replace with your own awards
-      // { t:"Award Name", u:"award_url", a:"Optional description", v:"Award Label", vc:"venue-award", img:"figures/award_thumb.png" },
+      { t:"RECON: Reasoning with Condensation for Efficient Retrieval-Augmented Generation", u:"https://arxiv.org/abs/2510.10448", a:"Zhichao Xu, <strong>Minheng Wang</strong>, Yawei Wang, Wenqian Ye, Yuntao Du, Yunpu Ma, Yijun Tian", v:"Preprint", vc:"venue-preprint", img:"" },
     ];
     function render(list, id) {
       const el = document.getElementById(id);
@@ -487,7 +476,6 @@
       });
     }
     render(pubs, 'pub-list');
-    render(awards, 'awards-list');
 
     /* ===== Scroll anim ===== */
     const obs = new IntersectionObserver(es => {
