@@ -8,6 +8,7 @@
   <meta property="og:title" content="Minheng Wang">
   <meta property="og:description" content="Undergraduate Student at University of Washington">
   <meta property="og:image" content="figures/profile.jpg">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,7 +281,7 @@
     footer a { color: var(--text-muted); }
     footer a:hover { color: var(--accent); }
 
-    /* ===== Pixel Pig ===== */
+    /* ===== Pig Carousel ===== */
     #kirby-wrap {
       position: fixed; bottom: 24px; right: 28px; z-index: 90;
       cursor: pointer; user-select: none; -webkit-user-select: none;
@@ -289,24 +290,16 @@
       animation: umaru-float 2.8s ease-in-out infinite;
       display: flex; flex-direction: column; align-items: center;
     }
-    #kirby-bubble {
-      background: var(--bg-card); color: var(--text-secondary);
-      font-family: var(--font-mono); font-size: 11px;
-      padding: 4px 10px; border-radius: 8px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 6px;
-      opacity: 0; transform: translateY(4px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none; white-space: nowrap;
+    #kirby-img {
+      width: 112px; height: 112px; object-fit: cover; display: block;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
-    #kirby-bubble.show { opacity: 1; transform: translateY(0); }
-    #kirby-canvas {
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
+    #kirby-img.swap { opacity: 0; transform: scale(0.92); }
+    #kirby-wrap:hover #kirby-img { transform: scale(1.04); }
     #kirby-shadow {
-      width: 60px; height: 8px; margin-top: 3px;
+      width: 90px; height: 10px; margin-top: 6px;
       background: radial-gradient(ellipse, rgba(0,0,0,0.1) 0%, transparent 70%);
       border-radius: 50%;
       animation: umaru-shadow 2.8s ease-in-out infinite;
@@ -344,6 +337,7 @@
       .nav-links { gap: 14px; }
       .nav-links a { font-size: 13px; }
       #kirby-wrap { bottom: 16px; right: 16px; }
+      #kirby-img { width: 84px; height: 84px; border-radius: 12px; }
     }
     @media (max-width: 480px) {
       .hero-text h1 { font-size: 28px; }
@@ -439,8 +433,7 @@
   <!-- Pixel Pig -->
   <div id="kirby-wrap">
     <div id="kirby-inner">
-      <div id="kirby-bubble">hi~</div>
-      <canvas id="kirby-canvas" width="16" height="16"></canvas>
+      <img id="kirby-img" src="figures/pigs/king.webp" alt="猪王登基" title="猪王登基">
       <div id="kirby-shadow"></div>
     </div>
   </div>
@@ -483,81 +476,27 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.anim').forEach(e => obs.observe(e));
 
-    /* ===== Pixel Pig ===== */
-    (function() {
-      const C = document.getElementById('kirby-canvas');
-      const ctx = C.getContext('2d');
-      const W = 16, H = 16, SCALE = 4;
-      C.style.width = (W * SCALE) + 'px';
-      C.style.height = (H * SCALE) + 'px';
-
-      const PAL = {
-        0: null,
-        1: '#f6cfae',
-        2: '#e3ad8c',
-        3: '#ee8a85',
-        4: '#2b2b2b',
-        5: '#d4558b',
-        6: '#f0a39b',
-      };
-
-      const FRAME_OPEN = [
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,
-        0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,1,
-        0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,0,
-        0,5,5,5,1,1,1,5,1,5,1,1,1,1,0,0,
-        1,1,1,1,1,1,1,5,1,5,1,1,1,1,1,0,
-        1,1,4,1,1,1,1,1,5,1,1,1,1,1,1,0,
-        1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,0,
-        1,3,3,3,3,3,1,1,1,1,1,1,1,1,1,0,
-        1,3,4,3,4,3,1,1,1,1,1,1,1,1,1,0,
-        0,1,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
-        0,0,1,1,1,1,1,1,1,1,6,6,1,1,1,0,
-        0,0,1,1,1,0,1,1,0,6,6,0,1,1,1,0,
-        0,0,1,1,1,0,1,1,0,0,0,0,1,1,1,0,
-        0,0,2,2,2,0,2,2,0,0,0,0,2,2,2,0,
+    /* ===== Pig Carousel (stickers from pighub.top) ===== */
+    (function () {
+      const PIGS = [
+        ['king', '猪王登基'], ['lol', '猪打lol'], ['cry', '哭哭猪'], ['world', '猪占领世界'],
+        ['benzene', '苯猪'], ['hungry', '猪饿了'], ['elephant', '大象'],
       ];
-
-      const FRAME_BLINK = FRAME_OPEN.slice();
-      FRAME_BLINK[7 * W + 2] = 2; FRAME_BLINK[8 * W + 6] = 2;
-
-      function drawFrame(data) {
-        ctx.clearRect(0, 0, W, H);
-        for (let i = 0; i < data.length; i++) {
-          if (data[i] === 0) continue;
-          ctx.fillStyle = PAL[data[i]];
-          ctx.fillRect(i % W, Math.floor(i / W), 1, 1);
-        }
-      }
-
-      let blinking = false;
-      function tick() { drawFrame(blinking ? FRAME_BLINK : FRAME_OPEN); }
-
-      function scheduleBlink() {
+      const img = document.getElementById('kirby-img');
+      PIGS.forEach(([f]) => { new Image().src = `figures/pigs/${f}.webp`; });
+      let i = 0, timer;
+      function show(next) {
+        i = (next + PIGS.length) % PIGS.length;
+        img.classList.add('swap');
         setTimeout(() => {
-          blinking = true; tick();
-          setTimeout(() => { blinking = false; tick(); }, 120);
-          setTimeout(() => {
-            blinking = true; tick();
-            setTimeout(() => { blinking = false; tick(); scheduleBlink(); }, 120);
-          }, 200);
-        }, 2500 + Math.random() * 2500);
+          img.src = `figures/pigs/${PIGS[i][0]}.webp`;
+          img.alt = img.title = PIGS[i][1];
+          img.classList.remove('swap');
+        }, 200);
       }
-
-      tick();
-      scheduleBlink();
-
-      const bubbleEl = document.getElementById('kirby-bubble');
-      const phrases = ['hi~', 'oink!', 'zzZ...', '♪ ♫', '(╹ᗜ╹)', '✧'];
-      let pi = 0;
-      document.getElementById('kirby-wrap').addEventListener('click', () => {
-        pi = (pi + 1) % phrases.length;
-        bubbleEl.textContent = phrases[pi];
-        bubbleEl.classList.add('show');
-        setTimeout(() => bubbleEl.classList.remove('show'), 1800);
-      });
+      function restart() { clearInterval(timer); timer = setInterval(() => show(i + 1), 10000); }
+      document.getElementById('kirby-wrap').addEventListener('click', () => { show(i + 1); restart(); });
+      restart();
     })();
   </script>
 </body>
