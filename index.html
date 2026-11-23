@@ -280,7 +280,7 @@
     footer a { color: var(--text-muted); }
     footer a:hover { color: var(--accent); }
 
-    /* ===== Pixel Umaru ===== */
+    /* ===== Pixel Pig ===== */
     #kirby-wrap {
       position: fixed; bottom: 24px; right: 28px; z-index: 90;
       cursor: pointer; user-select: none; -webkit-user-select: none;
@@ -436,7 +436,7 @@
     <p>&copy; 2026 Minheng Wang</p>
   </footer>
 
-  <!-- Pixel Umaru -->
+  <!-- Pixel Pig -->
   <div id="kirby-wrap">
     <div id="kirby-inner">
       <div id="kirby-bubble">hi~</div>
@@ -483,7 +483,7 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.anim').forEach(e => obs.observe(e));
 
-    /* ===== Pixel Umaru ===== */
+    /* ===== Pixel Pig ===== */
     (function() {
       const C = document.getElementById('kirby-canvas');
       const ctx = C.getContext('2d');
@@ -493,39 +493,35 @@
 
       const PAL = {
         0: null,
-        1: '#ff7043',
-        2: '#e64a19',
-        3: '#ffdfc4',
-        4: '#2d1b0e',
-        5: '#ffab91',
-        6: '#e57373',
+        1: '#f6cfae',
+        2: '#e3ad8c',
+        3: '#ee8a85',
+        4: '#2b2b2b',
+        5: '#d4558b',
+        6: '#f0a39b',
       };
 
       const FRAME_OPEN = [
-        0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,
-        0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,
-        0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-        0,1,1,1,3,3,3,3,3,3,3,3,1,1,1,0,
-        0,1,1,3,3,4,3,3,3,3,4,3,3,1,1,0,
-        0,1,1,3,5,3,3,3,3,3,3,5,3,1,1,0,
-        0,1,1,3,3,3,3,6,6,3,3,3,3,1,1,0,
-        0,1,1,3,3,3,3,3,3,3,3,3,1,1,1,0,
-        0,1,1,1,3,3,3,3,3,3,3,3,1,1,1,0,
-        0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-        0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
-        0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,
-        0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,
-        0,0,0,0,0,2,2,0,0,2,2,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,
+        0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,1,
+        0,0,5,1,1,1,1,1,1,1,1,1,1,1,1,0,
+        0,5,5,5,1,1,1,5,1,5,1,1,1,1,0,0,
+        1,1,1,1,1,1,1,5,1,5,1,1,1,1,1,0,
+        1,1,4,1,1,1,1,1,5,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,0,
+        1,3,3,3,3,3,1,1,1,1,1,1,1,1,1,0,
+        1,3,4,3,4,3,1,1,1,1,1,1,1,1,1,0,
+        0,1,3,3,3,1,1,1,1,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,1,1,1,1,6,6,1,1,1,0,
+        0,0,1,1,1,0,1,1,0,6,6,0,1,1,1,0,
+        0,0,1,1,1,0,1,1,0,0,0,0,1,1,1,0,
+        0,0,2,2,2,0,2,2,0,0,0,0,2,2,2,0,
       ];
 
       const FRAME_BLINK = FRAME_OPEN.slice();
-      const r6 = 6 * W;
-      FRAME_BLINK[r6+5] = 3; FRAME_BLINK[r6+10] = 3;
-      const r7 = 7 * W;
-      FRAME_BLINK[r7+4] = 4; FRAME_BLINK[r7+5] = 4;
-      FRAME_BLINK[r7+10] = 4; FRAME_BLINK[r7+11] = 4;
+      FRAME_BLINK[7 * W + 2] = 2; FRAME_BLINK[8 * W + 6] = 2;
 
       function drawFrame(data) {
         ctx.clearRect(0, 0, W, H);
@@ -554,7 +550,7 @@
       scheduleBlink();
 
       const bubbleEl = document.getElementById('kirby-bubble');
-      const phrases = ['hi~', 'zzZ...', '♪ ♫', '(╹ᗜ╹)', '✧'];
+      const phrases = ['hi~', 'oink!', 'zzZ...', '♪ ♫', '(╹ᗜ╹)', '✧'];
       let pi = 0;
       document.getElementById('kirby-wrap').addEventListener('click', () => {
         pi = (pi + 1) % phrases.length;
