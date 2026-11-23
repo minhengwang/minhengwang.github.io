@@ -434,7 +434,7 @@
   <!-- Pixel Pig -->
   <div id="kirby-wrap">
     <div id="kirby-inner">
-      <img id="kirby-img" src="figures/pigs/king.webp?v=5" alt="猪王登基" title="猪王登基">
+      <img id="kirby-img" src="figures/pigs/king@2x.webp?v=6" srcset="figures/pigs/king@1x.webp?v=6 1x, figures/pigs/king@2x.webp?v=6 2x, figures/pigs/king.webp?v=6 3x" alt="猪王登基" title="猪王登基">
       <div id="kirby-shadow"></div>
     </div>
   </div>
@@ -484,13 +484,16 @@
         ['benzene', '苯猪'], ['hungry', '猪饿了'], ['elephant', '大象'],
       ];
       const img = document.getElementById('kirby-img');
-      PIGS.forEach(([f]) => { new Image().src = `figures/pigs/${f}.webp?v=5`; });
+      const V = 'v=6';
+      const set = f => `figures/pigs/${f}@1x.webp?${V} 1x, figures/pigs/${f}@2x.webp?${V} 2x, figures/pigs/${f}.webp?${V} 3x`;
+      PIGS.forEach(([f]) => { const p = new Image(); p.srcset = set(f); });
       let i = 0, timer;
       function show(next) {
         i = (next + PIGS.length) % PIGS.length;
         img.classList.add('swap');
         setTimeout(() => {
-          img.src = `figures/pigs/${PIGS[i][0]}.webp?v=5`;
+          img.srcset = set(PIGS[i][0]);
+          img.src = `figures/pigs/${PIGS[i][0]}@2x.webp?${V}`;
           img.alt = img.title = PIGS[i][1];
           img.classList.remove('swap');
         }, 200);
